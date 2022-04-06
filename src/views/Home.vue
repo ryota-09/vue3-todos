@@ -5,12 +5,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, inject, onMounted } from "vue";
+import { storeKey } from "@/providers/StoreProvider"
 export default defineComponent({
-  //setupの中にフィールド変数もメソッドも記入。
   setup() {
-    
-    return {  };
+    const store = inject(storeKey);
+
+    if(!store){
+      throw new Error("");
+    }
+
+    onMounted(() => {
+      store.setTodoList();
+    })
+
+    return { store };
   },
 });
 </script>
