@@ -23,7 +23,13 @@ export const useStore = () => {
       );
     }
   };
-  return { ...toRefs(globalState), setTodoList };
+
+  const addTodo = (todo: Todo) => {
+    globalState.todoList.unshift(todo);
+  }
+
+
+  return { ...toRefs(globalState), setTodoList, addTodo };
 };
 
 type storeType = ReturnType<typeof useStore>;
