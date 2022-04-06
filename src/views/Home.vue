@@ -9,7 +9,7 @@
         v-bind:key="todo.id"
       >
         <div class="row">
-          <p class="todo-title col s9">Title: {{ todo.title }}</p>
+          <p class="todo-title col s9"  v-on:click="toDetailPage(todo.id)">Title: {{ todo.title }}</p>
           <div>
             <span class="btn-small col s2 btn-area teal lighten-1">{{todo.completed}}</span>
           </div>
@@ -27,22 +27,28 @@ import { defineComponent, inject, onMounted } from "vue";
 import { storeKey } from "@/providers/StoreProvider";
 
 import MakeTodo from "@/components/MakeTodo.vue";
+import { useRouter } from "vue-router";
 export default defineComponent({
   components: {
     MakeTodo,
   },
   setup() {
     const store = inject(storeKey);
+    const router = useRouter();
 
     if (!store) {
       throw new Error("");
+    }
+
+    const toDetailPage = (todoId: number) => {
+      router.push("/todoDetail/" + todoId);
     }
 
     onMounted(() => {
       store.setTodoList();
     });
 
-    return { store };
+    return { store, toDetailPage };
   },
 });
 </script>
@@ -60,5 +66,9 @@ export default defineComponent({
 }
 .btn-area {
   margin: 6px 0;
+}
+.todo-title :hover{
+  opacity: 0.8;
+  cursor: pointer;
 }
 </style>
