@@ -1,20 +1,31 @@
 <template>
-  <h3 class="title">ToDo App With Vue3.0</h3>
+  <h3 class="title">ToDo App with Vue3.0</h3>
   <MakeTodo />
   <div class="container">
     <div class="row">
       <div
         class="col s6 todo-area teal lighten-4"
-        v-for="todo of store.todoList.value"
+        v-for="(todo, index) of store.todoList.value"
         v-bind:key="todo.id"
       >
         <div class="row">
-          <p class="todo-title col s9"  v-on:click="toDetailPage(todo.id)">Title: {{ todo.title }}</p>
+          <p class="todo-title col s9" v-on:click="toDetailPage(todo.id)">
+            Title: {{ todo.title }}
+          </p>
           <div>
-            <span class="btn-small col s2 btn-area teal lighten-1">{{todo.completed}}</span>
+            <div v-if="todo.completed">
+              <span><i class="material-icons">done</i>Done !</span>
+            </div>
+            <div v-else>
+              <span class="btn-small col s2 btn-area teal lighten-1">yet...</span>
+            </div>
           </div>
           <div>
-            <span class="btn-small grey lighten-1">Delete</span>
+            <span
+              class="btn-small grey lighten-1"
+              v-on:click="store.deleteTodo(index)"
+              >Delete</span
+            >
           </div>
         </div>
       </div>
@@ -42,7 +53,7 @@ export default defineComponent({
 
     const toDetailPage = (todoId: number) => {
       router.push("/todoDetail/" + todoId);
-    }
+    };
 
     onMounted(() => {
       store.setTodoList();
@@ -67,7 +78,7 @@ export default defineComponent({
 .btn-area {
   margin: 6px 0;
 }
-.todo-title :hover{
+.todo-title :hover {
   opacity: 0.8;
   cursor: pointer;
 }

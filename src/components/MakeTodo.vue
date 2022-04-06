@@ -35,7 +35,7 @@ export default defineComponent({
     }
 
     const saveTodo = (): void => {
-      ///////IDの採番/////
+      ///////IDの採番(時間があればする)/////
       const newTodo = new Todo(
         1,
         201,

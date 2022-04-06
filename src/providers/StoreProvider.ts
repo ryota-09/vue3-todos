@@ -26,10 +26,19 @@ export const useStore = () => {
 
   const addTodo = (todo: Todo) => {
     globalState.todoList.unshift(todo);
-  }
+  };
 
+  const deleteTodo = (index: number) => {
+    for(let i = 0; i < globalState.todoList.length; i++){
+      if(i === index){
+        console.log(index)
+        console.log(globalState.todoList[index])
+        globalState.todoList.splice(index, 1);
+      }
+    }
+  };
 
-  return { ...toRefs(globalState), setTodoList, addTodo };
+  return { ...toRefs(globalState), setTodoList, addTodo, deleteTodo };
 };
 
 type storeType = ReturnType<typeof useStore>;
