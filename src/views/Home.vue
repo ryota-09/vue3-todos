@@ -1,5 +1,6 @@
 <template>
   <h3 class="title">ToDo App with Vue3.0</h3>
+  <br />
   <MakeTodo />
   <div class="container">
     <div class="row">
@@ -9,15 +10,17 @@
         v-bind:key="todo.id"
       >
         <div class="row">
+          <div class="title-area">
           <p class="todo-title col s9" v-on:click="toDetailPage(todo.id)">
             Title: {{ todo.title }}
           </p>
+          </div>
           <div>
             <div v-if="todo.completed">
               <span><i class="material-icons">done</i>Done !</span>
             </div>
             <div v-else>
-              <span class="btn-small col s2 btn-area teal lighten-1">yet...</span>
+              <span class="btn-small col s2 btn-area teal lighten-1" v-on:click="store.toggleCompleted(todo.id)">yet...</span>
             </div>
           </div>
           <div>
@@ -78,7 +81,11 @@ export default defineComponent({
 .btn-area {
   margin: 6px 0;
 }
-.todo-title :hover {
+.title-area{
+  width: 100%;
+  height: auto;
+}
+.title-area :hover {
   opacity: 0.8;
   cursor: pointer;
 }

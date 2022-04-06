@@ -1,3 +1,4 @@
+import { useTodo } from "@/composables/useTodo";
 import { Todo } from "@/types/todo";
 import axios from "axios";
 import { InjectionKey, reactive, toRefs } from "vue";
@@ -29,16 +30,28 @@ export const useStore = () => {
   };
 
   const deleteTodo = (index: number) => {
-    for(let i = 0; i < globalState.todoList.length; i++){
-      if(i === index){
-        console.log(index)
-        console.log(globalState.todoList[index])
+    for (let i = 0; i < globalState.todoList.length; i++) {
+      if (i === index) {
         globalState.todoList.splice(index, 1);
       }
     }
   };
 
-  return { ...toRefs(globalState), setTodoList, addTodo, deleteTodo };
+  const toggleCompleted = (todoId: number) => {
+    for (const todo of globalState.todoList) {
+      if (todo.id === todoId) {
+        todo.completed = !todo.completed;
+      }
+    }
+  };
+
+  return {
+    ...toRefs(globalState),
+    setTodoList,
+    addTodo,
+    deleteTodo,
+    toggleCompleted,
+  };
 };
 
 type storeType = ReturnType<typeof useStore>;
