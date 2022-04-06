@@ -22,7 +22,6 @@ export const useTodo = () => {
         );
       }
     }
-    console.log(currentTodo.value);
   };
 
   return { currentTodo, getTodoById };
